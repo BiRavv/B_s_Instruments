@@ -51,13 +51,13 @@ public class RegisterRecipes implements Listener {
                 null,null,null);
 
         new BSRecipe(AllInstruments.GetInstrumentByName("sticks-1").getItem(),
-                Material.STICK,null,Material.STICK,
+                Material.BONE,null,Material.BONE,
                 Material.STICK,null,Material.STICK,
                 Material.STICK,null,Material.STICK);
         new BSRecipe(AllInstruments.GetInstrumentByName("sticks-0").getItem(),
                 Material.BONE,null,Material.BONE,
-                Material.STICK,null,Material.STICK,
-                Material.STICK,null,Material.STICK);
+                Material.BAMBOO,null,Material.BAMBOO,
+                Material.BAMBOO,null,Material.BAMBOO);
 
         new BSRecipe(AllInstruments.GetInstrumentByName("bass-guitar-0").getItem(),
                 null,Material.IRON_NUGGET,Material.STICK,
@@ -77,11 +77,11 @@ public class RegisterRecipes implements Listener {
                 null,Material.COPPER_INGOT,null,
                 null,null,null);
 
-        new BSRecipe(AllInstruments.GetInstrumentByName("bell-0").getItem(),
+        new BSRecipe(AllInstruments.GetInstrumentByName("cow-bell-0").getItem(),
                 null,Material.BELL,null,
                 null,Material.BLAZE_ROD,null,
                 null,null,null);
-        new BSRecipe(AllInstruments.GetInstrumentByName("bell-1").getItem(),
+        new BSRecipe(AllInstruments.GetInstrumentByName("cow-bell-1").getItem(),
                 null,Material.BELL,null,
                 null,Material.STICK,null,
                 null,null,null);
@@ -93,7 +93,7 @@ public class RegisterRecipes implements Listener {
         new BSRecipe(AllInstruments.GetInstrumentByName("piano-1").getItem(),
                 null,null,null,
                 null,null,null,
-                Material.SMOOTH_QUARTZ_SLAB,Material.SMOOTH_QUARTZ_SLAB,Material.SMOOTH_QUARTZ_SLAB);
+                Material.BLACKSTONE_SLAB,Material.BLACKSTONE_SLAB,Material.BLACKSTONE_SLAB);
 
         new BSRecipe(AllInstruments.GetInstrumentByName("chime-1").getItem(),
                 Material.STICK,Material.STICK,Material.STICK,
@@ -122,11 +122,11 @@ public class RegisterRecipes implements Listener {
                 Material.IRON_NUGGET,Material.IRON_NUGGET,Material.IRON_NUGGET,
                 Material.STICK,null,Material.STICK);
 
-        new BSRecipe(AllInstruments.GetInstrumentByName("cow-bell-1").getItem(),
+        new BSRecipe(AllInstruments.GetInstrumentByName("bell-1").getItem(),
                 null,Material.GOLD_INGOT,null,
                 null,Material.GOLD_NUGGET,null,
                 null,null,null);
-        new BSRecipe(AllInstruments.GetInstrumentByName("cow-bell-0").getItem(),
+        new BSRecipe(AllInstruments.GetInstrumentByName("bell-0").getItem(),
                 null,Material.IRON_INGOT,null,
                 null,Material.IRON_NUGGET,null,
                 null,null,null);

@@ -24,12 +24,26 @@ public final class BSInstruments extends JavaPlugin {
     public void onEnable() {
         instance = this;
         NSKEY = new NamespacedKey(instance, "bsi");
+
         CommandManager cm = new CommandManager();
         instance.getCommand("geti").setExecutor(cm);
         instance.getCommand("geti").setTabCompleter(cm);
 
+        MuteManager mm = new MuteManager();
+        instance.getCommand("mute").setExecutor(mm);
+        instance.getCommand("mute").setTabCompleter(mm);
+
         Bukkit.getPluginManager().registerEvents(new LootSpawning(),instance);
         Bukkit.getPluginManager().registerEvents(new RegisterRecipes(),instance);
+
+        Bukkit.getLogger().info(" ");
+        Bukkit.getLogger().info("O=========================================================O");
+        Bukkit.getLogger().info("    The B's Instruments plugin has loaded successfully!");
+        Bukkit.getLogger().info("       This is B's Instruments for Minecraft JDK 21."    );
+        Bukkit.getLogger().info("                       Author: BiRaw");
+        Bukkit.getLogger().info("         Discord: https://discord.gg/XwFqu7uahX :>");
+        Bukkit.getLogger().info("O=========================================================O");
+        Bukkit.getLogger().info(" ");
     }
 
     @Override

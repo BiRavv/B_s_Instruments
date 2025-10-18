@@ -11,10 +11,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.bukkit.metadata.Metadatable;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,13 +60,66 @@ public class Instrument implements Listener {
                 PersistentDataType.STRING,
                 "instrument_"+sname+"_"+octave
         );
+            switch (sname.toLowerCase()) {
+                case "guitar":
+                    meta.setCustomModelData(7);
+                    break;
+                case "piano":
+                    meta.setCustomModelData(16);
+                    break;
+                case "bass-drum":
+                    meta.setCustomModelData(1);
+                    break;
+                case "snare-drum":
+                    meta.setCustomModelData(2);
+                    break;
+                case "sticks":
+                    meta.setCustomModelData(3);
+                    break;
+                case "bass-guitar":
+                    meta.setCustomModelData(4);
+                    break;
+                case "flute":
+                    meta.setCustomModelData(5);
+                    break;
+                case "bell":
+                    meta.setCustomModelData(6);
+                    break;
+                case "chime":
+                    meta.setCustomModelData(8);
+                    break;
+                case "xylophone":
+                    meta.setCustomModelData(9);
+                    break;
+                case "iron-xylophone":
+                    meta.setCustomModelData(10);
+                    break;
+                case "cow-bell":
+                    meta.setCustomModelData(11);
+                    break;
+                case "didgeridoo":
+                    meta.setCustomModelData(12);
+                    break;
+                case "bit":
+                    meta.setCustomModelData(13);
+                    break;
+                case "banjo":
+                    meta.setCustomModelData(14);
+                    break;
+                case "pling":
+                    meta.setCustomModelData(15);
+                    break;
+                default:
+                    meta.setCustomModelData(999); // fallback or unknown
+                    break;
+            }
         give.setItemMeta(meta);
         return give;
     }
 
     @EventHandler
     private void playerPlayEvent(PlayerInteractEvent event){
-        ItemMeta meta = event.getPlayer().getInventory().getItemInMainHand().getItemMeta();
+        ItemMeta meta = event.getPlayer().getInventory().getItemInOffHand().getItemMeta();
         if (meta == null) return;
         if (!meta.getPersistentDataContainer().has(BSInstruments.NSKEY)) return;
         if (!Objects.equals(meta.getPersistentDataContainer().get(
@@ -78,22 +133,25 @@ public class Instrument implements Listener {
 
         pitch+=90; pitch /= 180; pitch *=NOTES.size()-1; // convert player pitch to a note
 
-        // Play a note based on the players state
-        if (plr.isSneaking())
-        {
-            plr.playNote(plr.getLocation(), instrument, Note.flat(octave, NOTES.get(Math.round(pitch))));
-            plr.sendActionBar(NOTECOLORS.get(Math.round(pitch))+"♭");
-        }
-        else if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR)
-        {
-            plr.playNote(plr.getLocation(), instrument, Note.natural(octave, NOTES.get(Math.round(pitch))));
+        Note note;
+        if (plr.isSneaking()) {
+            note = Note.flat(octave, NOTES.get(Math.round(pitch)));
+            plr.sendActionBar(NOTECOLORS.get(Math.round(pitch)) + "♭");
+        } else if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_AIR) {
+            note = Note.natural(octave, NOTES.get(Math.round(pitch)));
             plr.sendActionBar(NOTECOLORS.get(Math.round(pitch)));
+        } else {
+            note = Note.sharp(octave, NOTES.get(Math.round(pitch)));
+            plr.sendActionBar(NOTECOLORS.get(Math.round(pitch)) + "#");
         }
-        else
-        {
-            plr.playNote(plr.getLocation(), instrument, Note.sharp(octave, NOTES.get(Math.round(pitch))));
-            plr.sendActionBar(NOTECOLORS.get(Math.round(pitch))+"#");
+
+        for (Player listener : Bukkit.getOnlinePlayers()) {
+            if (!MuteManager.getMuted().contains(listener)) {
+                listener.playNote(plr.getLocation(), instrument, note);
+            }
         }
+
         event.setCancelled(true);
+
     }
 }

@@ -1,5 +1,5 @@
 name: BSInstruments
-version: 1.0
+version: 1.1
 main: biraw.online.bSInstruments.BSInstruments
 api-version: 1.21
 
@@ -9,8 +9,16 @@ commands:
     usage: /geti <name>
     permission: bsinstruments.geti
     permission-message: You don't have permission to use this command!
+  mute:
+    description: Mute or unmute the instruments
+    usage: "'/mute <true|false>' or just '/mute' to show current"
+    permission: bsinstruments.mute
+    permission-message: You don't have permission to use this command!
 
 permissions:
   bsinstruments.geti:
     description: Allows the player to use /geti
     default: op
+  bsinstruments.mute:
+    description: Allows the player to use /mute
+    default: true
